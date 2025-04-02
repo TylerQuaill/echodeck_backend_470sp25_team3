@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.uscb.csci470sp25</groupId>
-	<artifactId>multiuserverse_backend</artifactId>
+	<artifactId>echodeck_backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>multiuserverse_backend</name>
-	<description>Backend for MultiUserverse</description>
+	<name>echodeck_backend</name>
+	<description>Backend for Echodeck</description>
 	<url />
 	<licenses>
 		<license />
@@ -60,10 +60,10 @@
 		</dependency>
 
 		<!-- ✅ Spring Boot Security -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- ✅ Spring Boot JPA (for database access) -->
 		<dependency>
@@ -95,6 +95,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>2.27.0</version>
 		</dependency>
 
 
