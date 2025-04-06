@@ -3,7 +3,7 @@ package edu.uscb.csci470sp25_team3.echodeck_backend.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users") // Ensures table is named properly in the database
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -19,17 +19,15 @@ public class User {
 	@Column(nullable = false)
 	private String role;
 
-	// ✅ Default constructor (required by JPA)
 	public User() {}
 
-	// ✅ Constructor with fields
 	public User(String email, String password, String role) {
 	        this.email = email;
 	        this.password = password;
 	        this.role = role;
 	    }
 
-	// ✅ Getters
+	// Getters
 	public Long getId() {
 		return id;
 	}
@@ -46,7 +44,7 @@ public class User {
 		return role;
 	}
 
-	// ✅ Setters (if needed)
+	// Setters
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -59,7 +57,7 @@ public class User {
 		this.role = role;
 	}
 
-	// ✅ Useful for debugging
+	// For debugging purposes
 	@Override
 	public String toString() {
 		return "AppUser{" + "id=" + id + ", email='" + email + '\'' + ", role='" + role + '\'' + '}';
