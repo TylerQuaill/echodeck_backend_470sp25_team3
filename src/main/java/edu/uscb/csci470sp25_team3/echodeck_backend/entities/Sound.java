@@ -14,6 +14,8 @@ public class Sound {
     private Long id;
     private String name;
     private String fileUrl;
+    private String artist;
+    private String credit;    
     
     // Getters and setters
     public Long getId() { return id; }
@@ -22,6 +24,10 @@ public class Sound {
     public void setName(String name) { this.name = name; }
     public String getFileUrl() { return fileUrl; }
     public void setFileUrl(String fileUrl) { this.fileUrl = fileUrl; }
+	public String getArtist() {	return artist; }
+	public void setArtist(String artist) { this.artist = artist; }
+	public String getCredit() {	return credit; }
+	public void setCredit(String credit) { this.credit = credit; }
 }
 
 
