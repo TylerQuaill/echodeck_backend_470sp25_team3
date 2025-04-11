@@ -60,10 +60,10 @@
 		</dependency>
 
 		<!-- ✅ Spring Boot Security -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency> 
 
 		<!-- ✅ Spring Boot JPA (for database access) -->
 		<dependency>
@@ -71,7 +71,7 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- ✅ PostgreSQL Driver (or change to MySQL if needed) -->
+		<!-- ✅ PostgreSQL Driver -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
