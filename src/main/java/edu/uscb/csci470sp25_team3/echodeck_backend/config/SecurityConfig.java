@@ -1,15 +1,12 @@
 package edu.uscb.csci470sp25_team3.echodeck_backend.config;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import edu.uscb.csci470sp25_team3.echodeck_backend.repository.UserRepository;
 import edu.uscb.csci470sp25_team3.echodeck_backend.security.JwtAuthEntryPoint;
 import edu.uscb.csci470sp25_team3.echodeck_backend.security.JwtAuthenticationFilter;
 import edu.uscb.csci470sp25_team3.echodeck_backend.security.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -50,17 +47,16 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/register", "/auth/login").permitAll()
+                .requestMatchers("/auth/register", "/auth/login", "/auth/guest").permitAll()
 
-                // Allow guests to view sound library
-                .requestMatchers(HttpMethod.GET, "/api/soundboard/library").permitAll()
+                // Allow public access to soundboard library and /api/sounds
+                .requestMatchers(HttpMethod.GET, "/api/soundboard/library", "/api/soundboard/library/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/sounds", "/api/sounds/").permitAll()
 
-                // Only signed-in users can modify their soundboard
                 .requestMatchers(HttpMethod.POST, "/api/soundboard/add/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/soundboard/remove/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/soundboard/my-sounds/**").authenticated()
 
-                // Everything else requires authentication
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exception -> exception
@@ -109,4 +105,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-

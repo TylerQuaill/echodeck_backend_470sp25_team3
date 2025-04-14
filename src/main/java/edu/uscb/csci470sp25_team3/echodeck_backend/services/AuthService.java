@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -31,7 +32,7 @@ public class AuthService {
             throw new RuntimeException("User already exists.");
         }
 
-        // ✅ Create and save the user
+        // Create and save the user
         String hashedPassword = passwordEncoder.encode(password);
         User newUser = new User(email, hashedPassword, role);
         userRepository.save(newUser);
@@ -51,12 +52,22 @@ public class AuthService {
 
         User user = userOptional.get();
 
-        // ✅ Verify password
+        // Verify password
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Invalid email or password.");
         }
 
-        // ✅ Return JWT token
+        // Return JWT token
         return jwtUtil.generateToken(user);
     }
+    
+    public User createGuestUser() {
+        String guestEmail = "guest_" + UUID.randomUUID() + "@echodeck.local";
+        User guest = new User();
+        guest.setEmail(guestEmail);
+        guest.setPassword(passwordEncoder.encode("guest")); // Encoded
+        guest.setRole("GUEST");
+        return userRepository.save(guest);
+    }
+
 }
