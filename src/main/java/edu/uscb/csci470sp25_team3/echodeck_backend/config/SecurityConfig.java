@@ -51,7 +51,7 @@ public class SecurityConfig {
 
                 // Allow public access to soundboard library and /api/sounds
                 .requestMatchers(HttpMethod.GET, "/api/soundboard/library", "/api/soundboard/library/").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/sounds", "/api/sounds/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/sounds", "/api/sounds/**").permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/api/soundboard/add/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/soundboard/remove/**").authenticated()
