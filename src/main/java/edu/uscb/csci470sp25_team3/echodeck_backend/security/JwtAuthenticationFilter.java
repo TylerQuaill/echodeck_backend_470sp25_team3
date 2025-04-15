@@ -12,7 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import edu.uscb.csci470sp25_team3.echodeck_backend.repository.UserRepository;
 import edu.uscb.csci470sp25_team3.echodeck_backend.model.User;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -29,25 +28,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-    	// Get the token
+        // Get the token
         String token = jwtUtil.getTokenFromRequest(request);
-        
-        if (token != null) {
-            // Extract email from the token
-            String email = jwtUtil.extractEmail(token);
-            // Find the user from the repository using the email
-            User user = userRepository.findByEmail(email).orElse(null);
 
-            // If the user exists and the token is valid, authenticate the user
-            if (user != null && jwtUtil.isTokenValid(token, email)) {
-                // Create token for the user
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        user, null, List.of());
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
+        // ✅ If no token, skip authentication and continue
+        if (token == null) {
+            filterChain.doFilter(request, response);
+            return;
         }
-        
+
+        // Extract email from the token
+        String email = jwtUtil.extractEmail(token);
+
+        // Find the user from the repository using the email
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        // If the user exists and the token is valid, authenticate the user
+        if (user != null && jwtUtil.isTokenValid(token, email)) {
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                    user, null, List.of()); // Add authorities if needed
+            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+
         filterChain.doFilter(request, response);
     }
 }
