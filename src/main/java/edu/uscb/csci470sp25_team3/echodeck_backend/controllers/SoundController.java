@@ -13,7 +13,7 @@ import edu.uscb.csci470sp25_team3.echodeck_backend.entities.Sound;
 import edu.uscb.csci470sp25_team3.echodeck_backend.repository.SoundRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Allow requests from your frontend
+// @CrossOrigin(origins = "http://localhost:5173") // Allow requests from your frontend
 public class SoundController {
 
     private final SoundRepository soundRepository;
