@@ -60,10 +60,10 @@
 		</dependency>
 
 		<!-- ✅ Spring Boot Security -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<!-- ✅ Spring Boot JPA (for database access) -->
 		<dependency>
