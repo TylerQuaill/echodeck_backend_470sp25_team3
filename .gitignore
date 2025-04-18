@@ -34,3 +34,6 @@ build/
 
 src/main/resources/echodeck-key.json
 /bin/
+
+### Other files ###
+*.DS_Store
