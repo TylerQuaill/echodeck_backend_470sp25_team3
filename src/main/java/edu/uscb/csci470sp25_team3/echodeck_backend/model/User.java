@@ -1,3 +1,5 @@
+// This entity represents a user account in the system
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.model;
 
 import jakarta.persistence.*;
@@ -21,6 +23,7 @@ public class User {
 
 	public User() {}
 
+	// Constructor to create a user with email, password and role
 	public User(String email, String password, String role) {
 	        this.email = email;
 	        this.password = password;

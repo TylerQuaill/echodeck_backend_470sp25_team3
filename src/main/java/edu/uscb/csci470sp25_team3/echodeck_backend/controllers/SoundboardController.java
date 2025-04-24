@@ -1,3 +1,5 @@
+// This controller handles all soundboard actions such as viewing the sound library, adding/removing sounds, and enforcing sound limits
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.controllers;
 
 import java.util.List;
@@ -25,18 +27,18 @@ public class SoundboardController {
     @Autowired
     private UserSoundboardRepository userSoundRepo;
 
-    // Utility to get the current authenticated user
+    // Get the current authenticated user
     private User getAuthenticatedUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    // Public: Get all sounds
+    // Public Endpoint: Return all sounds in the soundboard library
     @GetMapping("/library")
     public List<Sound> getAllSounds() {
         return soundRepo.findAll();
     }
 
-    // Authenticated: Get sounds on the user's board
+    // Authenticated Endpoint: Return the sounds on the user's board
     @GetMapping("/my-sounds")
     public List<Sound> getUserActiveSounds() {
         User user = getAuthenticatedUser();
@@ -46,27 +48,31 @@ public class SoundboardController {
                 .collect(Collectors.toList());
     }
 
-    // Authenticated: Add a sound to user board
+    // Authenticated Endpoint: Add a sound to user's  board with a role based limit 
     @PostMapping("/add/{soundId}")
     public ResponseEntity<?> addSound(@PathVariable Long soundId) {
         User user = getAuthenticatedUser();
         Sound sound = soundRepo.findById(soundId).orElseThrow();
-
+        
+        // Count how many active sounds the user has already
         int activeCount = userSoundRepo.findByUserAndIsActive(user, true).size();
-
+         
+        // Set the sound limit based on role
         String role = user.getRole();
         int limit = 5;
+        
         if (role != null && (role.equalsIgnoreCase("USER")
                 || role.equalsIgnoreCase("PRIVILEGED_USER")
                 || role.equalsIgnoreCase("ADMIN"))) {
             limit = 20;
         }
-
+        // If the limit is reached, return this error
         if (activeCount >= limit) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("Sound limit reached for your account (" + limit + " sounds max).");
         }
-
+        
+        // Add or activate the sound for the user
         UserSoundboard entry = userSoundRepo.findByUserAndSound(user, sound)
                 .orElse(new UserSoundboard());
 
@@ -78,7 +84,7 @@ public class SoundboardController {
         return ResponseEntity.ok("Sound added to user's board");
     }
 
-    // Authenticated: Remove a sound
+    // Authenticated Endpoint: Remove a sound from the user's board (soft delete)
     @DeleteMapping("/remove/{soundId}")
     public ResponseEntity<?> removeSound(@PathVariable Long soundId) {
         User user = getAuthenticatedUser();
@@ -87,7 +93,7 @@ public class SoundboardController {
         UserSoundboard entry = userSoundRepo.findByUserAndSound(user, sound)
                 .orElseThrow();
 
-        entry.setIsActive(false);
+        entry.setIsActive(false); // mark as inactive
         userSoundRepo.save(entry);
         return ResponseEntity.ok("Sound removed from user's board");
     }

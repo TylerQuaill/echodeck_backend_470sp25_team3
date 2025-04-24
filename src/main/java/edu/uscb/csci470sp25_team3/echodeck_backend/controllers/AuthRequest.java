@@ -1,3 +1,5 @@
+// This class is used to handle incoming JSON data for user login and registration requests
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.controllers;
 
 public class AuthRequest {

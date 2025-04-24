@@ -1,3 +1,5 @@
+// This filter intercepts every HTTP request to check for a valid JWT token and authenticate the user if needed
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.security;
 
 import jakarta.servlet.FilterChain;
@@ -31,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Get the token
         String token = jwtUtil.getTokenFromRequest(request);
 
-        // ✅ If no token, skip authentication and continue
+        // If no token, skip authentication and continue
         if (token == null) {
             filterChain.doFilter(request, response);
             return;
@@ -40,10 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Extract email from the token
         String email = jwtUtil.extractEmail(token);
 
-        // Find the user from the repository using the email
+        // Find the user by email
         User user = userRepository.findByEmail(email).orElse(null);
 
-        // If the user exists and the token is valid, authenticate the user
+        // If the user exists and the token is valid, authenticate the request
         if (user != null && jwtUtil.isTokenValid(token, email)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     user, null, List.of()); // Add authorities if needed

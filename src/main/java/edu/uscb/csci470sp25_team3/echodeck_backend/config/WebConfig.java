@@ -1,3 +1,5 @@
+// This file configures general CORS settings for API endpoints, allowing frontend access from specified origins
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.config;
 
 import org.springframework.context.annotation.Bean;

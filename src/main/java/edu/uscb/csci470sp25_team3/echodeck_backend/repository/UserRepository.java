@@ -1,3 +1,5 @@
+// This repository provides database access methods for user entities
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.repository;
 
 import edu.uscb.csci470sp25_team3.echodeck_backend.model.User;
