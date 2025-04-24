@@ -1,3 +1,5 @@
+// This controller handles registering new users through an API endpoint
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import edu.uscb.csci470sp25_team3.echodeck_backend.repository.UserRepository;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    
+    // Create a new user (admin/dev testing)
     @PostMapping("/register")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);

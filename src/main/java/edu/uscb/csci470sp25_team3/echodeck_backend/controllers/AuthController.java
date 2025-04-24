@@ -1,3 +1,5 @@
+// This controller handles user authentication, registration, and guest account creation for the app.
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.controllers;
 
 import edu.uscb.csci470sp25_team3.echodeck_backend.model.User;
@@ -43,20 +45,25 @@ public class AuthController {
         return authService.authenticateUser(authRequest.getEmail(), authRequest.getPassword());
     }
 
-    // Create a guest user using the service 
+    // Create a guest user using the service and returns a token 
     @PostMapping("/guest")
     public ResponseEntity<String> createGuestUser() {
+    	// Generate email and password for guest
         String guestEmail = "guest_" + UUID.randomUUID() + "@echodeck.local";
-        String guestPassword = UUID.randomUUID().toString(); // random password
+        String guestPassword = UUID.randomUUID().toString(); 
         String encodedPassword = passwordEncoder.encode(guestPassword);
-
+        
+        // Create a new guest user with role "GUEST"
         User guest = new User();
         guest.setEmail(guestEmail);
-        guest.setPassword(encodedPassword); // must be encoded
-        guest.setRole("GUEST"); // ✅ DO NOT leave this null
-
+        guest.setPassword(encodedPassword);
+        guest.setRole("GUEST");
+        
+        // Save the guest to the db
         userRepository.save(guest);
+        
+        // Generate and return a token for the guest
         String token = jwtUtil.generateToken(guest);
-        return ResponseEntity.ok(token); // return token for immediate use
+        return ResponseEntity.ok(token); 
     }
 }

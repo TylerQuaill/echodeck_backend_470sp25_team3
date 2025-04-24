@@ -1,3 +1,5 @@
+// This service provides access to sound related data such as retrieving all sounds in the library.
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.services;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import edu.uscb.csci470sp25_team3.echodeck_backend.repository.SoundRepository;
 public class SoundService {
     @Autowired
     private SoundRepository soundRepository;
+    
+    // Return all sounds from the database
     public List<Sound> getAllSounds() {
         return soundRepository.findAll();
     }
