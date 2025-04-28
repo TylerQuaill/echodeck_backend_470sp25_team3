@@ -1,3 +1,5 @@
+// This service handles user registration, login, and guest account creation
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.services;
 
 import edu.uscb.csci470sp25_team3.echodeck_backend.model.User;
@@ -61,6 +63,7 @@ public class AuthService {
         return jwtUtil.generateToken(user);
     }
     
+    // Generates temp guest user accoount with a random email and default "GUEST" role
     public User createGuestUser() {
         String guestEmail = "guest_" + UUID.randomUUID() + "@echodeck.local";
         User guest = new User();

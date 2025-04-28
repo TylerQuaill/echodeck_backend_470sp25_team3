@@ -1,3 +1,5 @@
+// This entity represents the connection between a user and the sounds they added to their board
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.entities;
 
 import edu.uscb.csci470sp25_team3.echodeck_backend.model.User;

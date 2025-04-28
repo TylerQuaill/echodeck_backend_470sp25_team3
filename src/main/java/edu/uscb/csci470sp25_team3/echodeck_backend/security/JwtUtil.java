@@ -1,3 +1,5 @@
+// This class provides utility methods for generating, validating, and extracting info from JWT tokens
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.security;
 
 import io.jsonwebtoken.Jwts;

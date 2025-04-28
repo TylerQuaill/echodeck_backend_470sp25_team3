@@ -1,3 +1,5 @@
+//This controller handles fetching all available sounds or specific sound by ID from the database
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.controllers;
 
 import java.util.List;
@@ -13,7 +15,6 @@ import edu.uscb.csci470sp25_team3.echodeck_backend.entities.Sound;
 import edu.uscb.csci470sp25_team3.echodeck_backend.repository.SoundRepository;
 
 @RestController
-// @CrossOrigin(origins = "http://localhost:5173") // Allow requests from your frontend
 public class SoundController {
 
     private final SoundRepository soundRepository;
@@ -25,7 +26,7 @@ public class SoundController {
     // Fetch all sounds
     @GetMapping("/api/sounds")
     public List<Sound> getSounds() {
-        return soundRepository.findAll(); // Fetch all sounds from the database
+        return soundRepository.findAll(); // Get all sounds from the database
     }
 
     // Fetch a specific sound by ID

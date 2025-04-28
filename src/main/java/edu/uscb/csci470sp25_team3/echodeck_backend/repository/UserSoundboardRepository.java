@@ -1,3 +1,5 @@
+// This repository handles database queries related to the UserSoundboard entity, linking users to their saved sounds
+
 package edu.uscb.csci470sp25_team3.echodeck_backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
